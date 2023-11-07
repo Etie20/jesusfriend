@@ -23,7 +23,7 @@ class LecturePage extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     return BlocBuilder<TtsCubit, TtsState>(
-        builder: (_, state) {
+        builder: (context, state) {
           return Scaffold(
             drawer: MyDrawer(backgroundColor: backgroundColor),
             backgroundColor: Colors.white,

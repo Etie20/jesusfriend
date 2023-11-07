@@ -98,17 +98,6 @@ class HomePage extends StatelessWidget {
                           padding: EdgeInsets.only(right: 20, left: 20),
                           child: Text("Hi, Etie20", style: TextStyle(fontFamily: "Inter",color: Color.fromRGBO(255, 255, 255, 130)),),
                         ),
-                        BlocBuilder<TtsCubit, TtsState>(
-                          builder: (context, state) {
-                            if(state is TtsPlaying) {
-                              Text('Temps d\'écoute: ${state.listenTime}');
-                            }
-                            if(state is TtsStopped) {
-                              const Text('Audio stoppé');
-                            }
-                            return Container();
-                          },
-                        ),
                         SizedBox(height: height/100,),
                         const Padding(
                           padding: EdgeInsets.only(right: 20, left: 20),

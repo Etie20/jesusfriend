@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/tts/ttsCubit.dart';
+import 'package:jesusandme/features/daily_meditation/presentation/pages/first_page.dart';
+import 'package:jesusandme/features/daily_meditation/presentation/pages/splash_page.dart';
 
 import '../../../../injection_container.dart';
 import '../bloc/cubit/colorCubit.dart';
@@ -19,7 +21,9 @@ class Home extends StatelessWidget {
         BlocProvider<PlansBloc>(create: (_) => sl()..add(const GetPlans())),
         BlocProvider<ColorCubit>(create: (_) => ColorCubit())
       ],
-      child: const HomePage(),
+      child: const SplashPage()
+      //FirstPage()
+      //HomePage(),
     );
   }
 

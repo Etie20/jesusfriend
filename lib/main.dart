@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_bloc.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_event.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'config/routes/routes.dart';
+import 'core/constants/constants.dart';
 import 'features/daily_meditation/presentation/bloc/tts/ttsCubit.dart';
 import 'features/daily_meditation/presentation/pages/home.dart';
 import 'injection_container.dart';
@@ -11,6 +13,10 @@ import 'injection_container.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Supabase.initialize(
+    url: supabaseUrl,
+    anonKey: anonKey,
+  );
   await initializeDependencies();
   runApp(const MyApp());
 }

@@ -4,6 +4,7 @@ import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_event.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_state.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/cubit/stringCubit.dart';
+import 'package:jesusandme/features/daily_meditation/presentation/pages/otp_page.dart';
 
 import '../../../../injection_container.dart';
 import '../../data/user_preferences.dart';
@@ -29,7 +30,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Image(image: AssetImage("assets/images/cry.png")),
+                  const Image(image: AssetImage("assets/images/login.png")),
                   Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: BlocProvider(
@@ -40,6 +41,31 @@ class LoginPage extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text("Login", style: TextStyle(color: Colors.white, fontFamily: "inter", fontSize: 28, fontWeight: FontWeight.bold),),
+                                const SizedBox(height: 10,),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.person, color: Colors.white,),
+                                    const SizedBox(width: 20,),
+                                    SizedBox(
+                                      width: width/1.5,
+                                      child: TextFormField(
+                                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                                        validator: (value) {
+                                          // Vérifie si le champ de texte est vide
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please enter your username';
+                                          }
+                                          context.read<StringCubit>().setString(value.trim());
+                                        },
+                                        style: const TextStyle(color: Colors.white, fontFamily: "Inter"),
+                                        decoration: const InputDecoration(
+                                            hintText: "Username",
+                                            hintStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                                 const SizedBox(height: 10,),
                                 Row(
                                   children: [
@@ -100,6 +126,9 @@ class LoginPage extends StatelessWidget {
                                                   child: Button(name: 'Login',
                                                     onPressed: () {
                                                     _.read<AuthBloc>().add(LoginPressed(email: email));
+                                                      /*Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                                                        return OtpPage(email: email);
+                                                      },));*/
                                                     },
                                                     iconData: null,
                                                     isLoading: false,

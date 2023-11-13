@@ -24,8 +24,10 @@ Future<void>  initializeDependencies() async {
   const storage = FlutterSecureStorage();
 
   //Supabase
-  sl.registerSingleton<SupabaseClient>(SupabaseClient(supabaseUrl, anonKey));
-
+  sl.registerSingleton<SupabaseClient>(
+      //SupabaseClient(supabaseUrl, anonKey)
+    Supabase.instance.client
+  );
   //Services
   sl.registerSingleton<DailyPlansService>(DailyPlansService(sl()));
 

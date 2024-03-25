@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_state.dart' as Astate;
+import 'package:jesusandme/features/daily_meditation/presentation/pages/home.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../data/user_preferences.dart';
@@ -16,7 +17,7 @@ class SplashPage extends StatelessWidget {
         builder: (_, state) {
           if( state is Astate.AuthSuccess) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.pushReplacementNamed(context, '/');
+              Navigator.push(context, PageRouteBuilder(pageBuilder: (_,__,___) => const Home()));
             });
           }
           if( state is Astate.AuthUnauthenticated) {

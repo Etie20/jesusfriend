@@ -4,7 +4,6 @@ import 'package:route_transitions/route_transitions.dart';
 
 import '../../data/user_preferences.dart';
 import '../widgets/button.dart';
-import 'home_page.dart';
 
 // ignore: must_be_immutable
 class FirstPage extends StatelessWidget {
@@ -42,7 +41,7 @@ class FirstPage extends StatelessWidget {
                   child: Button(
                     name: 'Get started',
                     onPressed: () {
-                      slideRightWidget(newPage: LoginPage(), context: context);
+                      slideRightWidget(newPage: const LoginPage(), context: context);
                     },
                     iconData: Icons.arrow_forward_ios, isLoading: false,
                   )

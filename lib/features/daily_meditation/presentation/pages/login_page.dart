@@ -1,18 +1,51 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jesusandme/core/constants/constants.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_bloc.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_event.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_state.dart';
 import 'package:jesusandme/features/daily_meditation/presentation/bloc/cubit/stringCubit.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:gotrue/src/types/auth_state.dart' as astate;
+import 'package:jesusandme/features/daily_meditation/presentation/bloc/auth/auth_state.dart' as abstate;
 
 import '../../../../injection_container.dart';
 import '../../data/user_preferences.dart';
 import '../widgets/button.dart';
 import '../widgets/line.dart';
+import 'home.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _redirecting = false;
+  late final StreamSubscription<astate.AuthState> _authStateSubscription;
+
+  @override
+  void initState() {
+    _authStateSubscription = SupabaseClient(supabaseUrl, anonKey).auth.onAuthStateChange.listen((data) {
+      if (_redirecting) return;
+      final session = data.session;
+      if (session != null) {
+        _redirecting = true;
+        Navigator.push(context, PageRouteBuilder(pageBuilder: (_,__,___) => const Home()));
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _authStateSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +109,7 @@ class LoginPage extends StatelessWidget {
                                   children: [
                                     BlocProvider<AuthBloc>(
                                       create: (_) => sl(),
-                                      child: BlocListener<AuthBloc, AuthState>(
+                                      child: BlocListener<AuthBloc, abstate.AuthState>(
                                         listener: (_, state){
                                           if (state is AuthSuccess) {
                                             ScaffoldMessenger.of(context).showSnackBar(
@@ -91,7 +124,7 @@ class LoginPage extends StatelessWidget {
                                             );
                                           }
                                         },
-                                        child: BlocBuilder<AuthBloc, AuthState>(
+                                        child: BlocBuilder<AuthBloc, abstate.AuthState>(
                                           builder: (_, state) {
                                             if (state is AuthInitial) {
                                               return SizedBox(

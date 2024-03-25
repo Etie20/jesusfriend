@@ -15,7 +15,10 @@ class AuthService {
 
   Future<bool> isLoggedIn() async {
     final session = _supabaseClient.auth.currentUser;
-    print(session);
     return session != null;
+  }
+
+  Future<void> signOut() async {
+    await _supabaseClient.auth.signOut();
   }
 }

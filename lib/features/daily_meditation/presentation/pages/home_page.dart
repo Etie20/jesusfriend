@@ -9,8 +9,6 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../bloc/cubit/colorCubit.dart';
-import '../bloc/tts/ttsCubit.dart';
-import '../bloc/tts/ttsState.dart';
 import '../widgets/plan_container.dart';
 import '../widgets/stat_container.dart';
 

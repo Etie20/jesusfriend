@@ -4,6 +4,8 @@ abstract class AuthRepository {
 
   Future<void> signOut();
 
+  Future<void> verifyOtp(String username, String email, String otp);
+
   Future<void> updateProfile();
 
   Future<bool> isLoggedIn();

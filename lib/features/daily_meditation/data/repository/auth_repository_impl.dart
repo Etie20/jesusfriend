@@ -13,7 +13,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> signOut() async{
-    // TODO: implement signOut
+    await _authService.logOut();
     throw UnimplementedError();
   }
 
@@ -26,5 +26,12 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<bool> isLoggedIn() async {
     return await _authService.isLoggedIn();
+  }
+
+  @override
+  Future<void> verifyOtp(String username, String email, String otp) async {
+    // TODO: implement verifyOtp
+    await _authService.verifyOTP(username, email, otp);
+    throw UnimplementedError();
   }
 }
